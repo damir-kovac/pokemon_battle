@@ -1,43 +1,69 @@
 import { useEffect, useState } from "react";
-import { getPokemon, getRandomNumber } from "../utility";
 import Pokemon from "../Pokemon";
+import arrow from "../assets/arrow.svg";
+import Menu from "../Menu";
+import Logs from "../Logs";
 
-const BattlePage = () =>{
+const BattlePage = ({p1,p2,newGame,newOpponent}) =>{
 
-    const [num1, setRandomNumber1] = useState(getRandomNumber());
-    const [num2, setRandomNumber2] = useState(getRandomNumber());
+    const [health1, setHealth1] = useState(p1.stats[0].base_stat);
+    const [health2, setHealth2] = useState(p2.stats[0].base_stat);
 
-    const [p1, setP1] = useState();
-    const [p2, setP2] = useState();
+    const [leftAttacks, setLeftAttacks] = useState(p1.stats[5].base_stat > p2.stats[5].base_stat ? true : false);
 
-    const [loading1, setLoading1] = useState(true);
-    const [loading2, setLoading2] = useState(true);
-    
-    useEffect(()=>{
-        const getData = async () =>{
-            setP1(await getPokemon(num1));
-            setLoading1(false);
-        };
-        getData();
-    },[num1]);
+    const handleAttack = () =>{
+        if(leftAttacks){
+            const dmg = (p1.stats[1].base_stat/2)*(1-(p2.stats[2].base_stat/2/100));
+            setHealth2((health2 - dmg)>0 ? health2 - dmg : 0);
+            setLeftAttacks(false);
+        }
+        if(!leftAttacks){
+            const dmg = (p2.stats[1].base_stat/2)*(1-(p1.stats[2].base_stat/2/100));
+            setHealth1((health1 - dmg)>0 ? health1 - dmg : 0);
+            setLeftAttacks(true);
+        }
+    }
 
-    useEffect(()=>{
-        const getData = async () =>{
-            setP2(await getPokemon(num2));
-            setLoading2(false);
-        };
-        getData();
-    },[num2]);
+    const handleNewOpponent = () =>{
+        newOpponent(health1);
+    }
+
+    useEffect (()=>{
+        setHealth1(p1.stats[0].base_stat);
+        setHealth2(p2.stats[0].base_stat);
+        setLeftAttacks(p1.stats[5].base_stat > p2.stats[5].base_stat ? true : false);
+    },[p1,p2])
+
 
     return (
         <>
             <div className="row">
-                {loading1 ? <h2>Loading...</h2> : <Pokemon p={p1}/>}
-                {loading2 ? <h2>Loading...</h2> : <Pokemon p={p2}/>}
+                <Pokemon p={p1} hp={health1}/>
+                { !health1 || !health2
+                    ? (
+                        <div className="attack_container">
+                            <h1>Battle Over</h1>
+                            {health1==0 
+                                ? <div id="endgameMessage">{p2.name.toUpperCase()} WINS!</div> 
+                                : <div id="endgameMessage">{p1.name.toUpperCase()} WINS!</div>
+                            }
+                        </div>
+                    )
+                    : (
+                        <div className="attack_container">
+                            <div>
+                                {leftAttacks ? <img src={arrow} alt="Arrow" className="rotate"/> : <img src={arrow} alt="Arrow"/>}
+                                <button type="button" className="button" onClick={handleAttack}> Attack! </button>
+                            </div>
+                        </div>
+                    )
+                }
+                <Pokemon p={p2} hp={health2}/>
             </div>
             <div className="row">
-                
-            </div>
+                <Menu newGame={newGame} isDone={!health1 || !health2} handleNewOpponent={handleNewOpponent}/>
+                <Logs />
+            </div>  
         </>
     )
 }

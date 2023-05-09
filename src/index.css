@@ -38,6 +38,10 @@ h4{
     margin: 15px;
     text-align: center;
 }
+
+.button:hover{
+    cursor: pointer;
+}
 /* _____________________________________ */
 
 /* HOME PAGE */
@@ -63,7 +67,7 @@ h4{
     flex-direction: row;
     justify-content: space-between;
 }
-.pokemon_container{
+.pokemon{
     width: 20%;
     text-align: center;
 }
@@ -111,7 +115,7 @@ h4{
     position: relative;
 }
 
-.button_wrapper{
+.buttons_container{
     background-color: #FFF7D6;
     border: solid 3px #FFCC00;
     border-radius: 10px;
@@ -147,4 +151,17 @@ h4{
 .hpBar{
     border-radius: 20px;
     height: 15px;
+}
+
+.loser{
+    box-shadow: red 0px 5px 15px;
+}
+
+#endgameMessage{
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.blured{
+    opacity: 0.5;
 }

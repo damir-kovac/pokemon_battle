@@ -1,11 +1,13 @@
+import HpBar from "./HpBar";
 import { correctId } from "./utility";
 
-const Pokemon = ({p}) =>{
+const Pokemon = ({p,hp}) =>{
 
     const id=correctId(p.id);
 
     return (
-        <div className="pokemon">
+        <div className={hp ? "pokemon" : "pokemon loser"}>
+            <HpBar maxHp={p.stats[0].base_stat} hp={hp}/>
             <h3>{p.name.toUpperCase()}</h3>
             <img
                 src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`}
