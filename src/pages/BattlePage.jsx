@@ -11,16 +11,20 @@ const BattlePage = ({p1,p2,newGame,newOpponent}) =>{
 
     const [leftAttacks, setLeftAttacks] = useState(p1.stats[5].base_stat > p2.stats[5].base_stat ? true : false);
 
+    const [log, setLog] = useState([]);
+
     const handleAttack = () =>{
         if(leftAttacks){
-            const dmg = (p1.stats[1].base_stat/2)*(1-(p2.stats[2].base_stat/2/100));
+            const dmg = ((p1.stats[1].base_stat/2)*(1-(p2.stats[2].base_stat/2/100))).toFixed(2);
             setHealth2((health2 - dmg)>0 ? health2 - dmg : 0);
             setLeftAttacks(false);
+            setLog([...log,`${p1.name.toUpperCase()} attacks ${p2.name.toUpperCase()} and deals ${dmg} damage.`]);
         }
         if(!leftAttacks){
-            const dmg = (p2.stats[1].base_stat/2)*(1-(p1.stats[2].base_stat/2/100));
+            const dmg = ((p2.stats[1].base_stat/2)*(1-(p1.stats[2].base_stat/2/100))).toFixed(2);
             setHealth1((health1 - dmg)>0 ? health1 - dmg : 0);
             setLeftAttacks(true);
+            setLog([...log,`${p2.name.toUpperCase()} attacks ${p1.name.toUpperCase()} and deals ${dmg} damage.`]);
         }
     }
 
@@ -34,6 +38,19 @@ const BattlePage = ({p1,p2,newGame,newOpponent}) =>{
         setLeftAttacks(p1.stats[5].base_stat > p2.stats[5].base_stat ? true : false);
     },[p1,p2])
 
+    useEffect (()=>{
+        if(!health1){
+            setLog([...log,`*** Battle over.${p2.name.toUpperCase()} defeats ${p1.name.toUpperCase()} ***`]);
+        }
+        if(!health2){
+            setLog([...log,`*** Battle over.${p1.name.toUpperCase()} defeats ${p2.name.toUpperCase()} ***`]);
+        }
+    },[health1, health2]);
+
+    useEffect (()=>{
+        setLog([...log,`*** New Battle. ${p1.name.toUpperCase()} vs. ${p2.name.toUpperCase()}. ***`])
+    },[p1,p2]);
+
 
     return (
         <>
@@ -43,7 +60,7 @@ const BattlePage = ({p1,p2,newGame,newOpponent}) =>{
                     ? (
                         <div className="attack_container">
                             <h1>Battle Over</h1>
-                            {health1==0 
+                            {health1===0 
                                 ? <div id="endgameMessage">{p2.name.toUpperCase()} WINS!</div> 
                                 : <div id="endgameMessage">{p1.name.toUpperCase()} WINS!</div>
                             }
@@ -62,7 +79,7 @@ const BattlePage = ({p1,p2,newGame,newOpponent}) =>{
             </div>
             <div className="row">
                 <Menu newGame={newGame} isDone={!health1 || !health2} handleNewOpponent={handleNewOpponent}/>
-                <Logs />
+                <Logs log={log} health1={health1} health2={health2}/>
             </div>  
         </>
     )
