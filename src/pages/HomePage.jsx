@@ -5,7 +5,8 @@ const HomePage = () =>{
     return (
         <div id="homePage">
             <img src={pokemonLogo} alt="pokemon-logo" />
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae obcaecati officia voluptates minima repudiandae. Quaerat perferendis accusantium delectus unde, iure ipsa alias harum maiores voluptatibus facilis quisquam omnis quae aliquam.</p>
+            <p>This App is intended strictly for personal, non-comercial use. I created it during my process of learning ReactJs for purely educational purposes. </p>
+            <p>I have no intention of selling it, building further on it or publishing it anywhere except as a part of my portfolio. </p>
             <Link to="/BattlePage" className="button">BattlePage</Link>
         </div>
     )
