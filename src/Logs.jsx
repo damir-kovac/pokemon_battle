@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const Logs = ({log, health1, health2}) =>{
+const Logs = ({log}) =>{
 
     const logs = useRef();
 

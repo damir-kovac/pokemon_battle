@@ -15,13 +15,13 @@ const BattlePage = ({p1,p2,newGame,newOpponent}) =>{
 
     const handleAttack = () =>{
         if(leftAttacks){
-            const dmg = ((p1.stats[1].base_stat/2)*(1-(p2.stats[2].base_stat/2/100))).toFixed(2);
+            const dmg = ((p1.stats[1].base_stat/2)*(1-(p2.stats[2].base_stat/300))).toFixed(2);
             setHealth2((health2 - dmg)>0 ? health2 - dmg : 0);
             setLeftAttacks(false);
             setLog([...log,`${p1.name.toUpperCase()} attacks ${p2.name.toUpperCase()} and deals ${dmg} damage.`]);
         }
         if(!leftAttacks){
-            const dmg = ((p2.stats[1].base_stat/2)*(1-(p1.stats[2].base_stat/2/100))).toFixed(2);
+            const dmg = ((p2.stats[1].base_stat/2)*(1-(p1.stats[2].base_stat/300))).toFixed(2);
             setHealth1((health1 - dmg)>0 ? health1 - dmg : 0);
             setLeftAttacks(true);
             setLog([...log,`${p2.name.toUpperCase()} attacks ${p1.name.toUpperCase()} and deals ${dmg} damage.`]);

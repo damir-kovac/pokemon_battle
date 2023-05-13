@@ -7,18 +7,18 @@ const HpBar = ({hp, maxHp}) => {
             <div className="hpBar_container"
                 style={{
                     borderColor:
-                        hp_percent>50 && "#079325" ||
-                        (hp_percent>30 && hp_percent<=50) && "#FFCC00" ||
-                        (hp_percent<=30) && "red"
+                        (hp_percent>50 && "#079325") ||
+                        ((hp_percent>30 && hp_percent<=50) && "#FFCC00") ||
+                        (hp_percent<=30 && "red")
                 }}
             >
                 <div className="hpBar" 
                     style={{
                         width: hp_percent+"%",
                         backgroundColor: 
-                            hp_percent>50 && "#62FF84" ||
-                            (hp_percent>30 && hp_percent<=50) && "yellow" ||
-                            (hp_percent<=30) && "#FF7575"
+                            (hp_percent>50 && "#62FF84") ||
+                            ((hp_percent>30 && hp_percent<=50) && "yellow") ||
+                            (hp_percent<=30 && "#FF7575" )
                     }}
                 ></div>
             </div>
