@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pokemon_battle/static/css/main.eca15103.css",
-    "main.js": "/pokemon_battle/static/js/main.2073db9e.js",
+    "main.js": "/pokemon_battle/static/js/main.15030b97.js",
     "static/media/Pokemon-logo.png": "/pokemon_battle/static/media/Pokemon-logo.05b15868b37de0cf0e2f.png",
     "index.html": "/pokemon_battle/index.html",
     "static/media/arrow.svg": "/pokemon_battle/static/media/arrow.924776536ca5bf7cdfa889df44c2c07a.svg",
     "main.eca15103.css.map": "/pokemon_battle/static/css/main.eca15103.css.map",
-    "main.2073db9e.js.map": "/pokemon_battle/static/js/main.2073db9e.js.map"
+    "main.15030b97.js.map": "/pokemon_battle/static/js/main.15030b97.js.map"
   },
   "entrypoints": [
     "static/css/main.eca15103.css",
-    "static/js/main.2073db9e.js"
+    "static/js/main.15030b97.js"
   ]
 }
